@@ -35,13 +35,17 @@ service.factory 'Stream', ($resource) ->
     'get':
       method: 'GET',
       params:
-        endPoint: 'GetLiveStream')
+        endPoint: 'GetLiveStream'
+    'delete':
+      method: 'GET',
+      params:
+        endPoint: 'RemoveLiveStream')
 
 service.factory 'StreamQuery', ($http) ->
   streamQuery = {}
   
   streamQuery.getList = () ->
-    $http.get('Content/GetLiveStreamList').then(
+    $http.get('Content/GetLiveStreamList',cache:false).then(
       (response) ->
         things = response.data.LiveStreamInfoList.LiveStreamInfos
         return list : things)

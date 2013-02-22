@@ -52,6 +52,9 @@ angular.module('app.controllers', [])
     StreamQuery.fileNameExists(fileName,$scope.list)
   $scope.startStream = (id) ->
     Stream.save(Id: id)
+  $scope.deleteStream = (id) ->
+    console.log("DELETE")
+    Stream.delete(Id: id)
 
   $scope.videos = Video.query()
 
@@ -61,6 +64,7 @@ angular.module('app.controllers', [])
                 if 0 is --$scope.countDown
                   console.log("timer done")
                   $scope.getList()
+                  console.log($scope.list)
                   $scope.countDown  = 10
                   ++$scope.number
             ,1000)

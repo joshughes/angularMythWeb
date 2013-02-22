@@ -3,7 +3,8 @@ div(ng-app='ng-app')
     div(ng-controller='RecordingDetailCtrl')
       h2 {{recorded.Title}} 
       div(class="row-fluid")
-        div(class='span9')
+        img(src='/Content/GetPreviewImage?ChanId={{recorded.Channel.ChanId}}&Width=200&StartTime={{recorded.StartTime}}',class="span4")
+        div(class='span8')
           p(ng-hide='!recorded.SubTitile') SubTitile: {{recorded.SubTitle}}
           p(ng-hide='!recorded.Director') Director: {{recorded.Director}}
             a(ng-href='{{recorded.HomePage}}') {{recorded.HomePage}}

@@ -2,8 +2,11 @@ div(ng-app='ng-app')
   h2 Vidoes
   div(class='container-fluid')
     div(ng-controller='VideoCtrl')
+      div(class="row-fluid")
+        div(class='span2') Search
+          input(ng-model='query')
       ul.unstyled
-        li(ng-repeat='video in videos.VideoMetadataInfoList.VideoMetadataInfos')
+        li(ng-repeat='video in videos.VideoMetadataInfoList.VideoMetadataInfos | filter:query')
           div(class="row-fluid")
             img(src='{{video.Artwork.ArtworkInfos[1].URL}}&Width=200',class="span3")
             div(class='span9')
@@ -16,5 +19,6 @@ div(ng-app='ng-app')
                 div {{transcoding(video.FileName).PercentComplete}}%
               p {{transcoding(video.FileName).Id}}
               button(ng-click="startStream(video.Id)") Start Stream
+              button(ng-click="deleteStream(transcoding(video.FileName).Id)") Delete Stream
         
   
