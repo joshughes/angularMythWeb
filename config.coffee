@@ -46,7 +46,7 @@ exports.config =
 
   server:
     path: 'server.coffee'
-    port: 6832
+    port: 3000
     run: yes
   # Enable or disable minifying of result js / css files.
   # minify: true

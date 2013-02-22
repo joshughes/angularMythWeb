@@ -34,11 +34,12 @@ angular.module('app.controllers', [])
       return ''
 ])
 
-.controller('MyCtrl1', [
+.controller('VideoCtrl', [
   '$scope'
 
-($scope) ->
-  $scope.onePlusOne = 2
+($scope, $resource) ->
+  videos = $resource('/Video/GetVideoList' )
+  $scope.videos = videos.query()
 ])
 
 .controller('MyCtrl2', [
