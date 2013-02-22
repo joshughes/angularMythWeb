@@ -35,11 +35,32 @@ angular.module('app.controllers', [])
 ])
 
 .controller('VideoCtrl', [
-  '$scope'
+  '$scope','$resource'
 
 ($scope, $resource) ->
-  videos = $resource('/Video/GetVideoList' )
-  $scope.videos = videos.query()
+  videos = $resource '/Video/GetVideoList'
+  meta = videos.get()
+  $scope.videos = meta
+])
+
+.controller('VideoDetailCtrl', [
+  '$scope','$resource','$routeParams'
+
+($scope, $resource, $routeParams) ->
+  video = $resource '/Video/GetVideo', Id: $routeParams.videoId
+  meta = video.get(
+    {},
+    (data) ->
+      $scope.video = data.VideoMetadataInfo
+    (data) ->)
+])
+
+.controller('RecordingCtrl', [
+  '$scope','$resource'
+
+($scope, $resource) ->
+  recordings = $resource '/Dvr/GetRecordedList'
+  $scope.recordings = recordings.get()
 ])
 
 .controller('MyCtrl2', [

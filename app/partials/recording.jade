@@ -1,0 +1,12 @@
+div(ng-app='ng-app')
+  h2 Vidoes
+  div(class='container-fluid')
+    div(ng-controller='RecordingCtrl')
+      span THis 
+      ul.unstyled
+        li(ng-repeat='recording in recordings.ProgramList.Programs')
+          div(class="row-fluid")
+            div(class='span9')
+              h4 
+                a(ng-href='#/recording/{{recording.ChanId}}/{{recording.StartTime}}') {{recording.Title}}
+              p {{recording.Description}}

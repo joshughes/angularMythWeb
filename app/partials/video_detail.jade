@@ -1,0 +1,13 @@
+div(ng-app='ng-app')
+  div(class='container-fluid')
+    div(ng-controller='VideoDetailCtrl')
+      h2 {{video.Title}} 
+      div(class="row-fluid")
+        img(src='{{video.Artwork.ArtworkInfos[1].URL}}&Width=200',class="span3")
+        div(class='span9')
+          p(ng-hide='!video.SubTitile') SubTitile: {{video.SubTitle}}
+          p(ng-hide='!video.Certification') Rated: {{video.Certification}}
+          p(ng-hide='!video.Director') Director: {{video.Director}}
+          p(ng-hide='!video.HomePage')  WebPage: 
+            a(ng-href='{{video.HomePage}}') {{video.HomePage}}
+          p(ng-hide='!video.Description') {{video.Description}}

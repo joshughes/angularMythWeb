@@ -20,6 +20,10 @@ App.config([
 
     .when('/todo', {templateUrl: '/partials/todo.html'})
     .when('/video', {templateUrl: '/partials/video.html'})
+    .when('/video/:videoId', {templateUrl: 'partials/video_detail.html'})
+    .when('/recording', {templateUrl: 'partials/recording.html'})
+    .when('/recording/:recordingId',
+      {templateUrl: 'partials/recording_detail.html'})
     .when('/view2', {templateUrl: '/partials/partial2.html'})
 
     # Catch all

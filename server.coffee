@@ -15,6 +15,12 @@ exports.startServer = (port, path, callback) ->
 	app.get '/Video/*', (req,res) -> 
 		console.log("We are doing a request")
 		proxy.proxyRequest(req,res,proxyOptions)
+	app.get '/Content/*', (req,res) ->
+		console.log("We are doing an image request")
+		proxy.proxyRequest(req,res,proxyOptions)
+	app.get '/Dvr/*', (req,res) ->
+		console.log("We are doing an image request")
+		proxy.proxyRequest(req,res,proxyOptions)
 	app.listen port, ->
 		console.log "Express server listening on port %d in %s mode", port
 
