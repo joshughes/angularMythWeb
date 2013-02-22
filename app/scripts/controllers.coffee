@@ -35,21 +35,44 @@ angular.module('app.controllers', [])
 ])
 
 .controller('VideoCtrl', [
-  '$scope','$resource'
+  '$scope','$resource', 'Video', 'Stream' , 'StreamQuery'
 
-($scope, $resource) ->
-  videos = $resource '/Video/GetVideoList'
-  meta = videos.get()
-  $scope.videos = meta
+($scope, $resource, Video, Stream, StreamQuery) ->
+  $scope.loading = false
+  $scope.countDown = 10
+  $scope.number = 1
+
+  $scope.getList = () ->
+    StreamQuery.getList().then( (response) ->
+      $scope.loading = true
+      $scope.list = response.list
+      $scope.loading = false)
+  $scope.getList()
+  $scope.transcoding = (fileName) ->
+    StreamQuery.fileNameExists(fileName,$scope.list)
+  $scope.startStream = (id) ->
+    Stream.save(Id: id)
+
+  $scope.videos = Video.query()
+
+
+  timerID = setInterval( () ->
+              if not $scope.loading
+                if 0 is --$scope.countDown
+                  console.log("timer done")
+                  $scope.getList()
+                  $scope.countDown  = 10
+                  ++$scope.number
+            ,1000)
+
 ])
 
 .controller('VideoDetailCtrl', [
-  '$scope','$resource','$routeParams'
+  '$scope','$resource','$routeParams', 'Video'
 
-($scope, $resource, $routeParams) ->
-  video = $resource '/Video/GetVideo', Id: $routeParams.videoId
-  meta = video.get(
-    {},
+($scope, $resource, $routeParams, Video) ->
+  Video.get(
+    {Id: $routeParams.videoId},
     (data) ->
       $scope.video = data.VideoMetadataInfo
     (data) ->)
@@ -61,6 +84,21 @@ angular.module('app.controllers', [])
 ($scope, $resource) ->
   recordings = $resource '/Dvr/GetRecordedList'
   $scope.recordings = recordings.get()
+])
+
+.controller('RecordingDetailCtrl', [
+  '$scope','$resource','$routeParams'
+
+($scope, $resource, $routeParams) ->
+  recorded = $resource '/Dvr/GetRecorded',
+    StartTime: $routeParams.startTime
+    ChanId: $routeParams.chanId
+
+  recorded.get(
+    {},
+    (data) ->
+      $scope.recorded = data.Program
+    (data) ->)
 ])
 
 .controller('MyCtrl2', [

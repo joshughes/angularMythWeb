@@ -1,0 +1,10 @@
+div(ng-app='ng-app')
+  div(class='container-fluid')
+    div(ng-controller='RecordingDetailCtrl')
+      h2 {{recorded.Title}} 
+      div(class="row-fluid")
+        div(class='span9')
+          p(ng-hide='!recorded.SubTitile') SubTitile: {{recorded.SubTitle}}
+          p(ng-hide='!recorded.Director') Director: {{recorded.Director}}
+            a(ng-href='{{recorded.HomePage}}') {{recorded.HomePage}}
+          p(ng-hide='!recorded.Description') {{recorded.Description}}

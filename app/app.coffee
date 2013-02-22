@@ -22,7 +22,7 @@ App.config([
     .when('/video', {templateUrl: '/partials/video.html'})
     .when('/video/:videoId', {templateUrl: 'partials/video_detail.html'})
     .when('/recording', {templateUrl: 'partials/recording.html'})
-    .when('/recording/:recordingId',
+    .when('/recording/:chanId/:startTime',
       {templateUrl: 'partials/recording_detail.html'})
     .when('/view2', {templateUrl: '/partials/partial2.html'})
 

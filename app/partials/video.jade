@@ -2,7 +2,6 @@ div(ng-app='ng-app')
   h2 Vidoes
   div(class='container-fluid')
     div(ng-controller='VideoCtrl')
-      span THis 
       ul.unstyled
         li(ng-repeat='video in videos.VideoMetadataInfoList.VideoMetadataInfos')
           div(class="row-fluid")
@@ -11,5 +10,11 @@ div(ng-app='ng-app')
               h4 
                 a(ng-href='#/video/{{video.Id}}') {{video.Title}} {{video.Certification}}
               p {{video.Description}}
+              p{{video.FileName}}
+              div(ng-hide='!transcoding(video.FileName).PercentComplete',class='progress progress-striped active span2')
+                div(class='bar span2',style='width: {{transcoding(video.FileName).PercentComplete}}%')
+                div {{transcoding(video.FileName).PercentComplete}}%
+              p {{transcoding(video.FileName).Id}}
+              button(ng-click="startStream(video.Id)") Start Stream
         
   
