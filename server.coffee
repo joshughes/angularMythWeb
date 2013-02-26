@@ -13,10 +13,11 @@ proxyOptions =
 exports.startServer = (port, path, callback) ->
 	app.use express.static __dirname + '/_public'
 	app.get '/Video/*', (req,res) -> 
-		console.log("We are doing a request")
+		console.log("We are doing a request for Video List ")
 		proxy.proxyRequest(req,res,proxyOptions)
 	app.get '/Content/*', (req,res) ->
-		console.log("We are doing an image request")
+		console.log("We are doing an content request")
+		console.log(req.url)
 		proxy.proxyRequest(req,res,proxyOptions)
 	app.get '/Dvr/*', (req,res) ->
 		console.log("We are doing an image request")

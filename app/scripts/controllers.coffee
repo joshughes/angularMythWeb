@@ -40,33 +40,59 @@ angular.module('app.controllers', [])
 ($scope, $resource, Video, Stream, StreamQuery) ->
   $scope.loading = false
   $scope.countDown = 10
-  $scope.number = 1
 
   $scope.getList = () ->
-    StreamQuery.getList().then( (response) ->
-      $scope.loading = true
-      $scope.list = response.list
-      $scope.loading = false)
-  $scope.getList()
+    console.log("Get List Called")
+    Stream.query( (response) ->
+      console.log("Get List success")
+      $scope.list = response.LiveStreamInfoList.LiveStreamInfos)
+    $scope.list
+
+  console.log($scope.getList())
+  
+
   $scope.transcoding = (fileName) ->
     StreamQuery.fileNameExists(fileName,$scope.list)
   $scope.startStream = (id) ->
-    Stream.save(Id: id)
+    Stream.save(Id: id,
+      (response) ->
+        console.log("Success Add"))
+        
   $scope.deleteStream = (id) ->
     console.log("DELETE")
-    Stream.delete(Id: id)
+    Stream.delete(Id: id,
+      (response) ->
+        console.log("Success Delete"))
+        
 
   $scope.videos = Video.query()
+ 
+  $scope.streams = Stream.query()
+
+  $scope.getStreams = () -> Video.getWithStreams($scope.videos,  (response) ->
+    console.log("Response is")
+    console.log(response)
+    $scope.streamHash = response)
+
+  $scope.getStreams()
+
+
+  $scope.list = Video.stream( (response) ->
+    console.log("Got here")
+    consol.log($scope.videos)
+    console.log("Videos")
+    $scope.test= response
+    console.log(reponse))
 
 
   timerID = setInterval( () ->
               if not $scope.loading
                 if 0 is --$scope.countDown
                   console.log("timer done")
-                  $scope.getList()
+                  $scope.streams = Stream.query()
+                  $scope.getStreams()
                   console.log($scope.list)
                   $scope.countDown  = 10
-                  ++$scope.number
             ,1000)
 
 ])
@@ -103,13 +129,6 @@ angular.module('app.controllers', [])
     (data) ->
       $scope.recorded = data.Program
     (data) ->)
-])
-
-.controller('MyCtrl2', [
-  '$scope'
-
-($scope) ->
-  $scope
 ])
 
 .controller('TodoCtrl', [

@@ -5,6 +5,7 @@ div(ng-app='ng-app')
       div(class="row-fluid")
         div(class='span2') Search
           input(ng-model='query')
+      p{{streams}} Streams
       ul.unstyled
         li(ng-repeat='video in videos.VideoMetadataInfoList.VideoMetadataInfos | filter:query')
           div(class="row-fluid")
@@ -14,11 +15,9 @@ div(ng-app='ng-app')
                 a(ng-href='#/video/{{video.Id}}') {{video.Title}} {{video.Certification}}
               p {{video.Description}}
               p{{video.FileName}}
-              div(ng-hide='!transcoding(video.FileName).PercentComplete',class='progress progress-striped active span2')
-                div(class='bar span2',style='width: {{transcoding(video.FileName).PercentComplete}}%')
-                div {{transcoding(video.FileName).PercentComplete}}%
-              p {{transcoding(video.FileName).Id}}
+              p{{streamHash[video.Id]}} Stream
+              
               button(ng-click="startStream(video.Id)") Start Stream
-              button(ng-click="deleteStream(transcoding(video.FileName).Id)") Delete Stream
+              button(ng-click="deleteStream(streamHash[video.Id].Id)") Delete Stream
         
   
